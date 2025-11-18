@@ -1,21 +1,22 @@
-## How to use this template
+# MBU Boldbanen
 
-The repository has been tagged as a template repository. This means you can create a new repository based on this code using the [GitHub instructions](https://docs.github.com/en/repositories/creating-and-managing-repositories/creating-a-repository-from-a-template)
+---
 
+## 🔍 Overview
 
-### Alternative method: checkout the repository and remove git bindings
-Replace `<new-folder-name>` with your desired folder name:
-```sh
-git clone https://github.com/odense-rpa/process-template.git <new-folder-name>
+This process automates the creation and sharing of the sheet with the next quarters assignments and responsibilities.
 
-cd <new-folder-name>
+---
 
-rm -rf .git
-git init
-git add .
-git commit -m "Initial commit from process-template"
+## ⚙️ Main Responsibilities
+- Create a copy of current quarters sheet
+- Name this version the next quarters assignments and upload to SharePoint
+- Upload the reviewed sheet to employee Teams-channel
 
-git remote add origin <new-repo-url>
-git push -u origin main
-```
+---
 
+## 🧩 Structure
+
+- main.py – Entry point for all subflows
+- helpers/ – Shared utilities for ATS API, configs, and queue management
+- processes/ – Core logic for queue handling, item processing, and error management

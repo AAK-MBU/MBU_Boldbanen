@@ -12,13 +12,13 @@ def process_item(item_data: dict, item_reference: str):
     assert item_data, "Item data is required"
     assert item_reference, "Item reference is required"
 
-    file_name = f"{item_data.get("file_name")}.xlsx"
+    file_name = item_data.get("file_name")
 
     digilederteam_sharepoint_api = Sharepoint(**config.DIGILEDERTEAM_SHAREPOINT_KWARGS)
 
     digidaglig_sharepoint_api = Sharepoint(**config.DIGIDAGLIG_SHAREPOINT_KWARGS)
 
-    binary_excel = digilederteam_sharepoint_api.fetch_file_using_open_binary(file_name=file_name, folder_name="")
+    binary_excel = digilederteam_sharepoint_api.fetch_file_using_open_binary(file_name=f"{file_name}.xlsx", folder_name="")
 
     pdf_path = r"C:\tmp\Boldbanen\boldbanen.pdf"
 

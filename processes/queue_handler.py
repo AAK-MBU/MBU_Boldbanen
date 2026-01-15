@@ -20,7 +20,7 @@ def retrieve_items_for_queue() -> list[dict]:
 
     print(year_quarter)
 
-    current_boldbane_file_name = f"Boldbanen - Portefølje {year_quarter}.xlsx"
+    current_boldbane_file_name = f"Boldbanen - Portefølje {year_quarter}"
 
     print(current_boldbane_file_name)
 

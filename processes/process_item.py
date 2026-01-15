@@ -12,7 +12,7 @@ def process_item(item_data: dict, item_reference: str):
     assert item_data, "Item data is required"
     assert item_reference, "Item reference is required"
 
-    file_name = item_data.get("file_name")
+    file_name = f"{item_data.get("file_name")}.xlsx"
 
     digilederteam_sharepoint_api = Sharepoint(**config.DIGILEDERTEAM_SHAREPOINT_KWARGS)
 
@@ -29,6 +29,6 @@ def process_item(item_data: dict, item_reference: str):
 
     digidaglig_sharepoint_api.upload_file_from_bytes(
         binary_content=pdf_bytes,
-        file_name="Boldbanen.pdf",
+        file_name=f"{file_name}.pdf",
         folder_name="General/Boldbaner"
     )

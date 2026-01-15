@@ -9,16 +9,18 @@ dependencies = [
   "mbu_msoffice_integration>=1.0.1",
   "mbu-dev-shared-components>=3.0.0",
   "mbu-rpa-core",
+  "requests >= 2.31.0",
   "requests_ntlm >= 1.2.0",
-  "Pillow == 10.*",
+  "pywin32 >= 306",
   "openpyxl >= 3.1.2",
-  "pyodbc >= 5.1.0",
-  "python-dateutil == 2.9.*",
-  "cryptography >= 43.0.0",
   "office365-rest-python-client",
   "pandas >= 2.2.3",
+  "python-dateutil == 2.9.*",
+  "pyodbc >= 5.1.0",
   "sqlalchemy >= 2.0.20",
   "sqlalchemy[asyncio] >= 2.0.20",
+  "cryptography >= 43.0.0",
+  "Pillow == 10.*",
 ]
 
 [tool.uv.sources]

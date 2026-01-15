@@ -30,5 +30,5 @@ def process_item(item_data: dict, item_reference: str):
     digidaglig_sharepoint_api.upload_file_from_bytes(
         binary_content=pdf_bytes,
         file_name="Boldbanen.pdf",
-        folder_name="Boldbanen"
+        folder_name="General/Boldbaner"
     )

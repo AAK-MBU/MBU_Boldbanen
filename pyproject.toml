@@ -1,6 +1,6 @@
 [project]
 name = "mbu_boldbanen"
-version = "0.0.0"
+version = "1.0.0"
 description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
@@ -8,6 +8,7 @@ dependencies = [
   "automation-server-client",
   "mbu_msoffice_integration>=1.0.1",
   "mbu-dev-shared-components>=3.0.0",
+  "mbu-rpa-core",
   "requests_ntlm >= 1.2.0",
   "Pillow == 10.*",
   "openpyxl >= 3.1.2",

@@ -4,7 +4,7 @@
 
 ## 🔍 Overview
 
-This process automates the creation and sharing of the sheet with the next quarters assignments and responsibilities.
+This process automates the sharing of the sheet with the next quarters assignments and responsibilities.
 
 ---
 

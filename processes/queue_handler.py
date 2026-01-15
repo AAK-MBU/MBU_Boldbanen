@@ -6,7 +6,7 @@ import logging
 
 from automation_server_client import Workqueue
 
-from helpers import config
+from helpers import config, helper_functions
 
 logger = logging.getLogger(__name__)
 
@@ -15,6 +15,22 @@ def retrieve_items_for_queue() -> list[dict]:
     """Function to populate queue"""
     data = []
     references = []
+
+    year_quarter, today = helper_functions.get_current_quarter()
+
+    print(year_quarter)
+
+    current_boldbane_file_name = f"Boldbanen - Portefølje {year_quarter}.xlsx"
+
+    print(current_boldbane_file_name)
+
+    references.append(f"boldbanen_{year_quarter}_{today}")
+
+    file_data = {
+        "file_name": current_boldbane_file_name
+    }
+
+    data.append(file_data)
 
     items = [
         {"reference": ref, "data": d} for ref, d in zip(references, data, strict=True)

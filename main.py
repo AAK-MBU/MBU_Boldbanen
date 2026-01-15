@@ -20,6 +20,27 @@ from processes.queue_handler import concurrent_add, retrieve_items_for_queue
 logger = logging.getLogger(__name__)
 
 
+# ╔══════════════════════════════════════════════╗
+# ║ 🔥 REMOVE BEFORE DEPLOYMENT (TEMP OVERRIDES) 🔥 ║
+# ╚══════════════════════════════════════════════╝
+### This block disables SSL verification and overrides env vars ###
+# import os
+# os.environ["ATS_TOKEN"] = "usgGW3t_5_x1kTfWPs-S97bTBpSCvYR7V2YA3c1Zyh9GtQarjJNz0N8cxEQbRzxGqyXZyG2fFE_Y0BA2Tlp_VVPTv8F60X-bNjVCO71EirOhkhXPilyKG3pUjX91FdJRwzyo-etldwjGzrZmnSOW4zk_7_4CuR-hVadk8mXE698"
+# os.environ["ATS_URL"] = "https://mbu-ats-dev.adm.aarhuskommune.dk/api"
+
+# import requests
+# import urllib3
+# urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+# _old_request = requests.Session.request
+# def unsafe_request(self, *args, **kwargs):
+#     kwargs['verify'] = False
+#     return _old_request(self, *args, **kwargs)
+# requests.Session.request = unsafe_request
+# ╔══════════════════════════════════════════════╗
+# ║ 🔥 REMOVE BEFORE DEPLOYMENT (TEMP OVERRIDES) 🔥 ║
+# ╚══════════════════════════════════════════════╝
+
+
 async def populate_queue(workqueue: Workqueue):
     """Populate the workqueue with items to be processed."""
 
@@ -148,5 +169,3 @@ if __name__ == "__main__":
 
     if "--finalize" in sys.argv:
         asyncio.run(finalize(prod_workqueue))
-
-    sys.exit(0)

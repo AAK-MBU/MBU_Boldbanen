@@ -4,6 +4,8 @@ import tempfile
 
 from datetime import date
 
+from pathlib import Path
+
 import win32com.client as win32
 
 
@@ -16,6 +18,8 @@ def export_excel_to_pdf(binary_excel: bytes, pdf_path: str):
     :param pdf_path: Description
     :type pdf_path: str
     """
+
+    Path(pdf_path).parent.mkdir(parents=True, exist_ok=True)
 
     # 1. Write the Excel file to a temp location
     temp_xlsx = tempfile.NamedTemporaryFile(delete=False, suffix=".xlsx").name

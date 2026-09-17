@@ -1,7 +1,9 @@
 """Module to handle item processing"""
-# from mbu_rpa_core.exceptions import ProcessError, BusinessError
+
+from pathlib import Path
 
 from mbu_msoffice_integration.sharepoint_class import Sharepoint
+from mbu_rpa_core.exceptions import BusinessError
 
 from helpers import config, helper_functions
 
@@ -18,9 +20,14 @@ def process_item(item_data: dict, item_reference: str):
 
     digidaglig_sharepoint_api = Sharepoint(**config.DIGIDAGLIG_SHAREPOINT_KWARGS)
 
-    binary_excel = digilederteam_sharepoint_api.fetch_file_using_open_binary(file_name=f"{file_name}.xlsx", folder_name="")
+    binary_excel = digilederteam_sharepoint_api.fetch_file_using_open_binary(
+        file_name=f"{file_name}.xlsx", folder_name=config.BOLDBANE_SOURCE_FOLDER
+    )
 
-    pdf_path = r"C:\tmp\Boldbanen\boldbanen.pdf"
+    if not binary_excel:
+        raise BusinessError(f"Could not fetch '{file_name}.xlsx' from Sharepoint")
+
+    pdf_path = str(Path(r"C:\tmp\Boldbanen") / f"{file_name}.pdf")
 
     helper_functions.export_excel_to_pdf(binary_excel=binary_excel, pdf_path=pdf_path)
 
@@ -30,5 +37,5 @@ def process_item(item_data: dict, item_reference: str):
     digidaglig_sharepoint_api.upload_file_from_bytes(
         binary_content=pdf_bytes,
         file_name=f"{file_name}.pdf",
-        folder_name="General/Boldbaner"
+        folder_name=config.BOLDBANE_TARGET_FOLDER,
     )

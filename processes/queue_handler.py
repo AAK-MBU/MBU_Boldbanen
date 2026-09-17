@@ -5,36 +5,60 @@ import json
 import logging
 
 from automation_server_client import Workqueue
+from mbu_msoffice_integration.sharepoint_class import Sharepoint
 
 from helpers import config, helper_functions
 
 logger = logging.getLogger(__name__)
 
 
+
+
+
 def retrieve_items_for_queue() -> list[dict]:
     """Function to populate queue"""
-    data = []
-    references = []
+    items: list[dict] = []
 
     year_quarter, today = helper_functions.get_current_quarter()
+    next_year_quarter = helper_functions.get_next_quarter()
 
-    print(year_quarter)
+    # The current quarter is always queued - a missing file is a real problem and
+    # should surface as an error during processing.
+    current_boldbane_file_name = f"{config.BOLDBANE_FILE_NAME_PREFIX} {year_quarter}"
 
-    current_boldbane_file_name = f"Boldbanen - Portefølje {year_quarter}"
+    logger.info("Queueing current quarter file: %s", current_boldbane_file_name)
 
-    print(current_boldbane_file_name)
+    items.append(
+        {
+            "reference": f"boldbanen_{year_quarter}_{today}",
+            "data": {"file_name": current_boldbane_file_name},
+        }
+    )
 
-    references.append(f"boldbanen_{year_quarter}_{today}")
+    # Next quarter is only queued once the file has actually been made available.
+    next_boldbane_file_name = f"{config.BOLDBANE_FILE_NAME_PREFIX} {next_year_quarter}"
 
-    file_data = {
-        "file_name": current_boldbane_file_name
-    }
+    digilederteam_sharepoint_api = Sharepoint(**config.DIGILEDERTEAM_SHAREPOINT_KWARGS)
 
-    data.append(file_data)
+    if helper_functions.file_exists_in_sharepoint(
+        sharepoint_api=digilederteam_sharepoint_api,
+        file_name=f"{next_boldbane_file_name}.xlsx",
+        folder_name=config.BOLDBANE_SOURCE_FOLDER,
+    ):
+        logger.info("Queueing next quarter file: %s", next_boldbane_file_name)
 
-    items = [
-        {"reference": ref, "data": d} for ref, d in zip(references, data, strict=True)
-    ]
+        items.append(
+            {
+                "reference": f"boldbanen_{next_year_quarter}_{today}",
+                "data": {"file_name": next_boldbane_file_name},
+            }
+        )
+
+    else:
+        logger.info(
+            "No file found for next quarter (%s). Nothing queued for it.",
+            next_year_quarter,
+        )
 
     return items
 

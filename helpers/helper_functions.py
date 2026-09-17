@@ -6,7 +6,31 @@ from datetime import date
 
 from pathlib import Path
 
+from mbu_msoffice_integration.sharepoint_class import Sharepoint
+
 import win32com.client as win32
+
+
+def file_exists_in_sharepoint(
+    sharepoint_api: Sharepoint, file_name: str, folder_name: str
+) -> bool:
+    """
+    Check whether a file is present in the given SharePoint folder.
+
+    Args:
+        sharepoint_api (Sharepoint): Authenticated SharePoint client.
+        file_name (str): File name including extension, e.g. "Boldbanen.xlsx".
+        folder_name (str): Folder within the document library.
+
+    Returns:
+        bool: True if a file with that name exists in the folder.
+    """
+    files = sharepoint_api.fetch_files_list(folder_name=folder_name) or []
+
+    # Sharepoint paths are case insensitive, so the comparison is too.
+    return any(
+        str(file.get("Name", "")).casefold() == file_name.casefold() for file in files
+    )
 
 
 def export_excel_to_pdf(binary_excel: bytes, pdf_path: str):

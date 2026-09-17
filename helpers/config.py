@@ -42,3 +42,11 @@ DIGIDAGLIG_SHAREPOINT_KWARGS = {
     "site_name": f"{DIGIDAGLIG_SHAREPOINT_SITE_NAME}",
     "document_library": f"{DOCUMENT_LIBRARY}",
 }
+
+# Boldbanen file settings
+# ----------------
+# Files are named "Boldbanen - Portefølje <YYYYQx>.xlsx" and live in the root of
+# the Digilederteam document library.
+BOLDBANE_FILE_NAME_PREFIX = "Boldbanen - Portefølje"
+BOLDBANE_SOURCE_FOLDER = ""
+BOLDBANE_TARGET_FOLDER = "General/Boldbaner"

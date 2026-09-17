@@ -12,9 +12,6 @@ from helpers import config, helper_functions
 logger = logging.getLogger(__name__)
 
 
-
-
-
 def retrieve_items_for_queue() -> list[dict]:
     """Function to populate queue"""
     items: list[dict] = []

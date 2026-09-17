@@ -1,14 +1,11 @@
 """ Module containing helper functions for the robot """
 
 import tempfile
-
 from datetime import date
-
 from pathlib import Path
 
-from mbu_msoffice_integration.sharepoint_class import Sharepoint
-
 import win32com.client as win32
+from mbu_msoffice_integration.sharepoint_class import Sharepoint
 
 
 def file_exists_in_sharepoint(

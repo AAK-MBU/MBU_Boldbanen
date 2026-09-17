@@ -28,3 +28,10 @@ automation-server-client = { git = "https://github.com/odense-rpa/automation-ser
 
 [tool.setuptools]
 py-modules = []
+
+[tool.ruff.lint]
+ignore = [
+  "SIM115", # Use a context manager for opening files
+  "DTZ011", # `datetime.date.today()` used - local date is what the quarter logic wants
+  "BLE001", # Do not catch blind exception - mirrors W0718 in .pylintrc
+]

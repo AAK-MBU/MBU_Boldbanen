@@ -19,7 +19,6 @@ def startup():
 
     # This part adds the app to the global var after startup,
     # and allows other files to use get_app() to get the app instance from the startup
-    # # ruff: noqa: PLW0603
     # global APP
     # APP = solteq_app
 
